@@ -1,6 +1,7 @@
 package startrack.api.entity;
 
 import org.hibernate.annotations.Type;
+import startrack.model.InterviewEvent;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,4 +22,7 @@ public class InterviewEventEntity {
     LocalDateTime endTime;
 
 
+    public InterviewEvent toInterviewEvent() {
+        return new InterviewEvent(uuid,startTime,endTime);
+    }
 }

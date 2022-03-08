@@ -17,8 +17,11 @@ public class InterviewAnswerEntity {
     UUID uuid;
 
     @ManyToOne
-    InterviewEvent interview;
+    InterviewEventEntity interview;
 
-    @Column(length = 65535)
+    @ManyToOne
+    InteviewQuestionEntity section;
+
+    @Column(columnDefinition = "TEXT")
     String answer;
 }

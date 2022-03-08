@@ -1,6 +1,7 @@
 package startrack.api.rs;
 
 import startrack.api.entity.TenantEntity;
+import startrack.api.service.InterviewService;
 import startrack.api.service.PersonService;
 import startrack.model.Person;
 
@@ -18,6 +19,10 @@ public class TenantResource {
     @Inject
     Instance<PersonService> personService;
 
+    @Inject
+    Instance<InterviewService> interviewServices;
+
+
     @Path("/person")
     public PersonResource getPersonResource(
             @PathParam("tenant") String tenantCode) {
@@ -25,6 +30,16 @@ public class TenantResource {
                 .map(tenant -> new PersonResource(
                         personService.get(),
                         tenant))
+                .orElseThrow(notFound("Could not find tenant [%s]".formatted(tenantCode)));
+    }
+
+    @Path("/interview")
+    public InterviewResource getInterviewResource(
+            @PathParam("tenant") String tenantCode) {
+        return findTenant(tenantCode)
+                .map(tenant -> new InterviewResource(
+                        tenant,
+                        interviewServices.get()))
                 .orElseThrow(notFound("Could not find tenant [%s]".formatted(tenantCode)));
     }
 

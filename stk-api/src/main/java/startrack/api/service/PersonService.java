@@ -11,9 +11,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Dependent
-public class PersonService {
-    @Inject
-    EntityManager em;
+public class PersonService extends Service {
+
 
     public List<Person> listAll() {
         return em.createQuery("select p from Person p", PersonEntity.class)
@@ -24,8 +23,11 @@ public class PersonService {
     }
 
     public Person findByUUID(String uuid) {
-        if(uuid == null) throw new RuntimeException("uuid is null");
-        var _uuid = UUID.fromString(uuid);
-        return em.find(PersonEntity.class, _uuid).toPerson();
+        return findByUUID(PersonEntity.class, uuid)
+                .map(PersonEntity::toPerson)
+                .get();
     }
+
+
+
 }
