@@ -14,8 +14,8 @@ import javax.ws.rs.core.MediaType;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class InterviewResource {
-    private TenantEntity tenant;
-    private InterviewService interviewService;
+    private final TenantEntity tenant;
+    private final InterviewService interviewService;
 
     public InterviewResource(TenantEntity tenant,
                              InterviewService interviewService) {
@@ -27,6 +27,6 @@ public class InterviewResource {
     @Path("{uuid}")
     @Produces(APPLICATION_JSON)
     public InterviewEvent getInterview(@PathParam("uuid") String uuid) {
-        return interviewService.findByUUID(uuid);
+        return interviewService.findByUUID(tenant, uuid);
     }
 }

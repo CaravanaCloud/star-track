@@ -1,4 +1,4 @@
-package startrack.app;
+package startrack.app.view;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;

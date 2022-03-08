@@ -1,4 +1,4 @@
-package startrack.app;
+package startrack.app.auth;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.eclipse.microprofile.rest.client.ext.ClientHeadersFactory;
@@ -18,7 +18,7 @@ public class AuthClientHeaders implements ClientHeadersFactory {
             MultivaluedMap<String, String> incomingHeaders,
             MultivaluedMap<String, String> clientOutgoingHeaders) {
         var token = "Bearer " + accessToken.getRawToken();
-        return new MultivaluedHashMap<String, String>(){{
+        return new MultivaluedHashMap<>() {{
             add("Authorization", token);
         }};
     }

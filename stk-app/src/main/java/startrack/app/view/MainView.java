@@ -1,4 +1,4 @@
-package startrack.app;
+package startrack.app.view;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Key;
@@ -16,6 +16,6 @@ import javax.inject.Inject;
 public class MainView extends VerticalLayout {
 
     public MainView() {
-        UI.getCurrent().getPage().setLocation("/user/home");
+        UI.getCurrent().getPage().setLocation("/main");
     }
 }

@@ -1,4 +1,4 @@
-package startrack.app;
+package startrack.app.view;
 
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
@@ -16,17 +16,14 @@ import javax.inject.Inject;
 @Route("hello")
 public class HelloView extends VerticalLayout {
 
-    @Inject
-    GreetService greetService;
-
     public HelloView() {
         // Use TextField for standard text input
         TextField textField = new TextField("Your name");
         textField.addThemeName("bordered");
 
         // Button click listeners can be defined as lambda expressions
-        Button button = new Button("Say hello", e -> Notification
-                .show(greetService.greet(textField.getValue())));
+        Button button = new Button("Say hello",
+                e -> Notification.show("Hello "+textField.getValue()));
 
         // Theme variants give you predefined extra styles for components.
         // Example: Primary button is more prominent look.
