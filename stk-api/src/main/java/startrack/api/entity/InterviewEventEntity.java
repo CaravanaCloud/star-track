@@ -21,6 +21,7 @@ public class InterviewEventEntity {
     LocalDateTime startTime;
     LocalDateTime endTime;
 
+    public InterviewEventEntity(){}
 
     public InterviewEvent toInterviewEvent() {
         return new InterviewEvent(uuid,startTime,endTime);
