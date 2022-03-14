@@ -14,26 +14,8 @@ import java.util.Map;
 
 @Dependent
 public class UserService {
-    @ConfigProperty(name = "keycloak.admin.url")
-    String adminUrl;
-
-    @ConfigProperty(name ="application.realm.name")
-    String realmName;
-
-    @ConfigProperty(name = "keycloak.admin.username")
-    String adminUsername;
-
-    @ConfigProperty(name = "keycloak.admin.password")
-    String adminPassword;
-
-    @ConfigProperty(name = "keycloak.admin.realm")
-    String adminRealm;
-
-    @ConfigProperty(name = "keycloak.admin.client-id")
-    String adminClientId;
-
-    @ConfigProperty(name = "keycloak.admin.client-secret")
-    String adminClientSecret;
+    @Inject
+    KeycloakService keycloak;
 
     @Inject
     SecurityIdentity securityIdentity;
@@ -45,8 +27,8 @@ public class UserService {
     public Map<String, String> whoami() {
         return Map.of(
                 "username", getUsername(),
-                "id", getUserId(),
-                "authServerUrl", adminUrl,
+                "id", keycloak.getUserId(getUsername()),
+                "keycloak_ping", keycloak.ping(),
                 "jwtToken", getShortToken()
         );
     }
@@ -59,36 +41,7 @@ public class UserService {
         return securityIdentity.getPrincipal().getName();
     }
 
-    public String getUserId(){
-        var first = 0;
-        var max = 1;
-        var username = getUsername();
-        var search = users().search(username, first, max);
-        var user = search.get(0);
-        return user.getId();
-    }
 
-    private void deleteUser(String userId) {
-        users().delete(userId);
-    }
 
-    private Keycloak keycloak() {
-        var kc = KeycloakBuilder.builder()
-                .serverUrl(adminUrl)
-                .realm(adminRealm)
-                .username(adminUsername)
-                .password(adminPassword)
-                .clientId(adminClientId)
-                .clientSecret(adminClientSecret)
-                .build();
-        return kc;
-    }
 
-    private RealmResource applicationRealm(){
-        return keycloak().realm(realmName);
-    }
-
-    private UsersResource users(){
-        return applicationRealm().users();
-    }
 }

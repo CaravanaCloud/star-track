@@ -14,11 +14,13 @@ public class PersonEntity extends PanacheEntityBase {
     @GeneratedValue
     @Type(type = "uuid-char")
     UUID uuid;
-    String name;
+
+    String fullName;
+
     @ManyToOne
     TenantEntity tenant;
 
     public Person toPerson() {
-        return new Person(uuid, name);
+        return new Person(uuid, fullName);
     }
 }

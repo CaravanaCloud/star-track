@@ -1,6 +1,6 @@
 create table person (tenant_uuid varchar(255) not null,
     uuid varchar(255) not null,
-    name varchar(255),
+    fullName varchar(255),
     primary key (uuid));
 
 alter table person
